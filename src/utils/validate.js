@@ -7,6 +7,12 @@ export function isvalidUsername(str) {
   return valid_map.indexOf(str.trim()) >= 0
 }
 
+/* 合法邮箱*/
+export function validateEmail(str) {
+  const reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/i
+  return reg.test(str.trim())
+}
+
 /* 合法uri*/
 export function validateURL(textval) {
   const urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/
@@ -31,3 +37,8 @@ export function validatAlphabets(str) {
   return reg.test(str)
 }
 
+/* 合法手机号*/
+export function validatMobiles(str) {
+  const reg = /^((13|15|18|14|17)+\d{9})$/
+  return reg.test(str)
+}
