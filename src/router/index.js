@@ -1,12 +1,12 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-const _import = require('./_import_' + process.env.NODE_ENV);
-// in development env not use Lazy Loading,because Lazy Loading large page will cause webpack hot update too slow.so only in production use Lazy Loading
+import Vue from 'vue'
+import Router from 'vue-router'
+const _import = require('./_import_' + process.env.NODE_ENV)
+// in development env not use Lazy Loading,because Lazy Loading too many pages will cause webpack hot update too slow.so only in production use Lazy Loading
 
-Vue.use(Router);
+Vue.use(Router)
 
 /* layout */
-import Layout from '../views/layout/Layout';
+import Layout from '../views/layout/Layout'
 
 /**
 * icon : the icon show in the sidebar
@@ -18,8 +18,8 @@ import Layout from '../views/layout/Layout';
 export const constantRouterMap = [
     { path: '/login', component: _import('login/index'), hidden: true },
     { path: '/authredirect', component: _import('login/authredirect'), hidden: true },
-    { path: '/404', component: _import('error/404'), hidden: true },
-    { path: '/401', component: _import('error/401'), hidden: true },
+    { path: '/404', component: _import('errorPage/404'), hidden: true },
+    { path: '/401', component: _import('errorPage/401'), hidden: true },
   {
     path: '/',
     component: Layout,
@@ -42,7 +42,7 @@ export default new Router({
   // mode: 'history', //后端支持可开
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
-});
+})
 
 export const asyncRouterMap = [
   {
@@ -53,7 +53,14 @@ export const asyncRouterMap = [
     icon: 'quanxian',
     meta: { role: ['admin'] },
     noDropdown: true,
-    children: [{ path: 'index', component: _import('permission/index'), name: '权限测试页', meta: { role: ['admin'] } }]
+    children: [{ path: 'index', component: _import('permission/index'), name: '权限测试页', meta: { role: ['admin'] }}]
+  },
+  {
+    path: '/icon',
+    component: Layout,
+    icon: 'icons',
+    noDropdown: true,
+    children: [{ path: 'index', component: _import('svg-icons/index'), name: 'icons' }]
   },
   {
     path: '/components',
@@ -65,8 +72,8 @@ export const asyncRouterMap = [
       { path: 'index', component: _import('components/index'), name: '介绍 ' },
       { path: 'tinymce', component: _import('components/tinymce'), name: '富文本编辑器' },
       { path: 'markdown', component: _import('components/markdown'), name: 'Markdown' },
-      { path: 'jsoneditor', component: _import('components/jsoneditor'), name: 'JSON编辑器' },
-      { path: 'dndlist', component: _import('components/dndlist'), name: '列表拖拽' },
+      { path: 'jsoneditor', component: _import('components/jsonEditor'), name: 'JSON编辑器' },
+      { path: 'dndlist', component: _import('components/dndList'), name: '列表拖拽' },
       { path: 'splitpane', component: _import('components/splitpane'), name: 'SplitPane' },
       { path: 'avatarupload', component: _import('components/avatarUpload'), name: '头像上传' },
       { path: 'dropzone', component: _import('components/dropzone'), name: 'Dropzone' },
@@ -81,7 +88,7 @@ export const asyncRouterMap = [
     component: Layout,
     redirect: '/charts/index',
     name: '图表',
-    icon: 'tubiaoleixingzhengchang',
+    icon: 'tubiao',
     children: [
       { path: 'index', component: _import('charts/index'), name: '介绍' },
       { path: 'keyboard', component: _import('charts/keyboard'), name: '键盘图表' },
@@ -104,27 +111,26 @@ export const asyncRouterMap = [
         name: 'Table',
         icon: 'table',
         children: [
-          { path: 'dynamictable', component: _import('example/table/dynamictable'), name: '动态table' },
+          { path: 'dynamictable', component: _import('example/table/dynamictable/index'), name: '动态table' },
           { path: 'dragtable', component: _import('example/table/dragTable'), name: '拖拽table' },
           { path: 'inline_edit_table', component: _import('example/table/inlineEditTable'), name: 'table内编辑' },
           { path: 'table', component: _import('example/table/table'), name: '综合table' }
         ]
       },
-      { path: 'form/edit', icon: 'ziliaoshouce', component: _import('example/form'), name: '编辑Form', meta: { isEdit: true } },
-      { path: 'form/create', icon: 'yinhangqia', component: _import('example/form'), name: '创建Form' },
-
-      { path: 'tab/index', icon: 'mobankuangjia', component: _import('example/tab/index'), name: 'Tab' }
+      { path: 'form/edit', icon: 'shouce', component: _import('example/form'), name: '编辑Form', meta: { isEdit: true }},
+      { path: 'form/create', icon: 'from', component: _import('example/form'), name: '创建Form' },
+      { path: 'tab/index', icon: 'tab', component: _import('example/tab/index'), name: 'Tab' }
     ]
   },
   {
-    path: '/errorpage',
+    path: '/error',
     component: Layout,
     redirect: 'noredirect',
     name: '错误页面',
     icon: '404',
     children: [
-      { path: '401', component: _import('error/401'), name: '401' },
-      { path: '404', component: _import('error/404'), name: '404' }
+      { path: '401', component: _import('errorPage/401'), name: '401' },
+      { path: '404', component: _import('errorPage/404'), name: '404' }
     ]
   },
   {
@@ -139,12 +145,12 @@ export const asyncRouterMap = [
   {
     path: '/excel',
     component: Layout,
-    redirect: 'noredirect',
+    redirect: '/excel/download',
     name: 'excel',
     icon: 'EXCEL',
     children: [
       { path: 'download', component: _import('excel/index'), name: '导出excel' },
-      { path: 'download2', component: _import('excel/selectExcel'), name: '选择导出excel' }
+      { path: 'download2', component: _import('excel/selectExcel'), name: '导出已选择项' }
     ]
   },
   {
@@ -158,4 +164,4 @@ export const asyncRouterMap = [
   },
 
   { path: '*', redirect: '/404', hidden: true }
-];
+]
