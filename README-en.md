@@ -73,7 +73,7 @@ npm install --registry=https://registry.npm.taobao.org
 npm run dev
 ```
 
-Visit in browser: http://localhost:9527
+Visit in browser: http://localhost:9528
 
 ## Distribution
 
